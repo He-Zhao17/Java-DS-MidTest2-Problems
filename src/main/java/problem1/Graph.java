@@ -1,5 +1,7 @@
 package problem1;
 
+import java.util.List;
+
 /** Problem 1:
  * Consider the following problem: we have N people in some organization,
  * and one of these people might secretly be a "spy".
@@ -52,7 +54,27 @@ class Graph {
     public int findSpy() {
         int res = -1;
         // FILL IN CODE
-
+        int[] InCounter = new int[graph.length];
+        int[] OutCounter = new int[graph.length];
+        int VNum = 0;
+        for (int i = 0; i < graph.length; i++) {
+            //Edge temp = graph[i];
+            for (Edge temp = graph[i]; temp != null; temp = temp.next) {
+                if (temp.neighbor > VNum) {
+                    VNum = temp.neighbor;
+                }
+                if (temp.next.neighbor > VNum) {
+                    VNum = temp.next.neighbor;
+                }
+                InCounter[temp.neighbor]++;
+                OutCounter[temp.next.neighbor]++;
+            }
+        }
+        for (int i = 0; i < InCounter.length; i++) {
+            if (InCounter[i] == VNum + 1 && OutCounter[i] == 0) {
+                return i;
+            }
+        }
         return res;
     }
 

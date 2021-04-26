@@ -39,13 +39,36 @@ public class CompactPrefixTree  {
 
         // Second base case: if the node is a leaf node
         // FILL IN CODE
-
+        /*if (root.children == null) {
+            return 0;
+        } else {
+            boolean t = false;
+            for (Node r : root.children) {
+                if (r != null) {
+                    t = true;
+                    break;
+                }
+            }
+            if (!t) {
+                return 0;
+            }
+        }*/
         // Recursive case: recursively count the number of leaves in the children and add to count.
         int count = 0;
         // FILL IN CODE
+        for (Node r : root.children) {
+            if (r == null) {
+                continue;
+            } else {
+                count += countWords(r);
+            }
+        }
 
 
         // Don't forget to add a 1 if the root's isWord flag is true
+        if (root.isWord) {
+            count++;
+        }
 
         return count;
     }
